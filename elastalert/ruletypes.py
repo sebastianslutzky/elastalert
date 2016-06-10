@@ -29,6 +29,7 @@ class RuleType(object):
         self.matches = []
         self.rules = rules
         self.occurrences = {}
+        self.inconclusive = False
 
     def add_data(self, data):
         """ The function that the elastalert client calls with results from ES.
@@ -460,7 +461,8 @@ class FlatlineRule(FrequencyRule):
 
         # Don't check for matches until timeframe has elapsed
         if most_recent_ts - self.first_event[key] < self.rules['timeframe']:
-            return
+            self.inconclusive = True
+             return
 
         # Match if, after removing old events, we hit num_events
         count = self.occurrences[key].count()
