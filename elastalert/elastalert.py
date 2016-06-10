@@ -438,6 +438,11 @@ class ElastAlerter():
                 rule_inst.add_terms_data(data)
             else:
                 rule_inst.add_data(data)
+
+        if rule_inst.inconclusive:
+            # inconclusive data
+            return False
+
         # Warn if we hit max_query_size
         if self.num_hits - prev_num_hits == max_size and not rule.get('use_count_query'):
             logging.warning("Hit max_query_size (%s) while querying for %s" % (max_size, rule['name']))
