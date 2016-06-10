@@ -460,9 +460,9 @@ class FlatlineRule(FrequencyRule):
             self.first_event[key] = most_recent_ts
 
         # Don't check for matches until timeframe has elapsed
-        if most_recent_ts - self.first_event[key] < self.rules['timeframe']:
-            self.inconclusive = True
-             return
+        self.inconclusive = most_recent_ts - self.first_event[key] < self.rules['timeframe']
+        if self.inconclusive:
+            return
 
         # Match if, after removing old events, we hit num_events
         count = self.occurrences[key].count()
