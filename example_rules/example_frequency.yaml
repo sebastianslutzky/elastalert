@@ -2,11 +2,11 @@
 
 # (Optional)
 # Elasticsearch host
-# es_host: elasticsearch.example.com
+ es_host: locales
 
 # (Optional)
 # Elasticsearch port
-# es_port: 14900
+ es_port: 9200
 
 # (OptionaL) Connect with SSL to elasticsearch
 #use_ssl: True
@@ -17,40 +17,41 @@
 
 # (Required)
 # Rule name, must be unique
-name: Example rule
+ name: Example rule
 
 # (Required)
 # Type of alert.
 # the frequency rule type alerts when num_events events occur with timeframe time
-type: frequency
+ type: frequency
 
+ run_every:
+ seconds: 30
 # (Required)
 # Index to search, wildcard supported
-index: logstash-*
+ index: logstash-*
 
 # (Required, frequency specific)
 # Alert when this many documents matching the query occur within a timeframe
-num_events: 50
+ num_events: 0
 
 # (Required, frequency specific)
 # num_events must occur within this amount of time to trigger an alert
-timeframe:
+ timeframe:
   hours: 4
 
 # (Required)
 # A list of elasticsearch filters used for find events
 # These filters are joined with AND and nested in a filtered query
 # For more info: http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl.html
-filter:
-- term:
-    some_field: "some_value"
+ filter: []
 
 # (Required)
 # The alert is use when a match is found
-alert:
-- "email"
+ alert:
+ - "email"
+ from_addr: "Sterling Alert Watcher <watcher@LDUKLtd.onmicrosoft.com>"
 
 # (required, email specific)
 # a list of email addresses to send alerts to
-email:
-- "elastalert@example.com"
+ email:
+ - "sebastianslutzky@gmail.com"
